@@ -1,0 +1,17 @@
+  "virtualServer": {
+    "sourceAddressTranslation": {
+      "type": "automap"
+    },
+    "profiles": [
+      {
+        "name": "fastL4",
+        "partition": "Common"
+      }
+    ]
+  },
+  "pool": {
+    "monitors": [
+      "/Common/tcp"
+    ]
+  }
+}

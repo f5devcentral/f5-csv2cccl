@@ -1,0 +1,24 @@
+{
+  "virtualServer": {
+    "sourceAddressTranslation": {
+      "type": "automap"
+    },
+    "profiles": [
+      {
+        "name": "tcp-lan-optimized",
+        "partition": "Common",
+        "context": "serverside"
+      },
+      {
+        "name": "tcp-wan-optimized",
+        "partition": "Common",
+        "context": "clientside"
+      }
+    ]
+  },
+  "pool": {
+    "monitors": [
+      "/Common/tcp"
+    ]
+  }
+}

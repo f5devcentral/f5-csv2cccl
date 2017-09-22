@@ -1,0 +1,249 @@
+{
+  "resources": {
+    "test": {
+      "pools": [
+        {
+          "monitors": [
+            "/Common/tcp"
+          ],
+          "members": [
+            {
+              "port": 8080,
+              "address": "172.16.0.100"
+            }
+          ],
+          "name": "test_tcp_pool"
+        },
+        {
+          "monitors": [
+            "/Common/tcp"
+          ],
+          "members": [
+            {
+              "port": 8080,
+              "address": "172.16.0.100"
+            }
+          ],
+          "name": "test_fastl4_pool"
+        },
+        {
+          "monitors": [
+            "/Common/http"
+          ],
+          "members": [
+            {
+              "port": 8080,
+              "address": "172.16.0.100"
+            }
+          ],
+          "name": "test_http_pool"
+        },
+        {
+          "monitors": [
+            "/Common/http"
+          ],
+          "members": [
+            {
+              "port": 8080,
+              "address": "172.16.0.100"
+            }
+          ],
+          "name": "test_https_pool"
+        }
+      ],
+      "iapps": [
+        {
+          "tables": {
+            "monitor__Monitors": {
+              "rows": [
+                [
+                  "0",
+                  "/Common/http",
+                  "none",
+                  "none"
+                ]
+              ],
+              "columns": [
+                "Index",
+                "Name",
+                "Type",
+                "Options"
+              ]
+            },
+            "pool__Pools": {
+              "rows": [
+                [
+                  "0",
+                  "",
+                  "",
+                  "round-robin",
+                  "0",
+                  "none"
+                ]
+              ],
+              "columns": [
+                "Index",
+                "Name",
+                "Description",
+                "LbMethod",
+                "Monitor",
+                "AdvOptions"
+              ]
+            }
+          },
+          "name": "test_iapp_iapp",
+          "variables": {
+            "vs__ProfileHTTP": "/Common/http",
+            "iapp__logLevel": "7",
+            "pool__addr": "192.168.0.2",
+            "iapp__routeDomain": "auto",
+            "vs__Name": "test_iapp_vs",
+            "vs__ProfileClientProtocol": "/Common/tcp-wan-optimized",
+            "vs__SNATConfig": "automap",
+            "l7policy__strategy": "/Common/first-match",
+            "vs__ProfileServerProtocol": "/Common/tcp-lan-optimized",
+            "feature__insertXForwardedFor": "enabled",
+            "pool__DefaultPoolIndex": "0",
+            "pool__mask": "255.255.255.255",
+            "iapp__mode": "auto",
+            "vs__Description": "",
+            "pool__port": "8888"
+          },
+          "destination": "192.168.0.2:8888",
+          "template": "/Common/appsvcs_integration_v2.0.004",
+          "poolMemberTable": {
+            "members": [
+              {
+                "port": 8080,
+                "address": "172.16.0.100"
+              }
+            ],
+            "name": "pool__members",
+            "columns": [
+              {
+                "kind": "IPAddress",
+                "name": "addr"
+              },
+              {
+                "kind": "Port",
+                "name": "port"
+              },
+              {
+                "name": "connection_limit",
+                "value": "0"
+              }
+            ]
+          },
+          "options": {
+            "description": "This is a test iApp"
+          }
+        }
+      ],
+      "virtualServers": [
+        {
+          "pool": "test_tcp_pool",
+          "destination": "192.168.0.1:8000",
+          "profiles": [
+            {
+              "partition": "Common",
+              "name": "tcp-lan-optimized",
+              "context": "serverside"
+            },
+            {
+              "partition": "Common",
+              "name": "tcp-wan-optimized",
+              "context": "clientside"
+            }
+          ],
+          "sourceAddressTranslation": {
+            "type": "automap"
+          },
+          "name": "test_tcp_vs"
+        },
+        {
+          "pool": "test_fastl4_pool",
+          "destination": "192.168.0.2:9000",
+          "profiles": [
+            {
+              "partition": "Common",
+              "name": "fastL4"
+            }
+          ],
+          "sourceAddressTranslation": {
+            "type": "automap"
+          },
+          "name": "test_fastl4_vs"
+        },
+        {
+          "pool": "test_http_pool",
+          "destination": "192.168.0.2:80",
+          "profiles": [
+            {
+              "partition": "Common",
+              "name": "tcp-lan-optimized",
+              "context": "serverside"
+            },
+            {
+              "partition": "Common",
+              "name": "tcp-wan-optimized",
+              "context": "clientside"
+            },
+            {
+              "partition": "Common",
+              "name": "http",
+              "context": "all"
+            }
+          ],
+          "sourceAddressTranslation": {
+            "type": "automap"
+          },
+          "name": "test_http_vs"
+        },
+        {
+          "pool": "test_https_pool",
+          "destination": "192.168.0.2:443",
+          "profiles": [
+            {
+              "partition": "Common",
+              "name": "tcp-lan-optimized",
+              "context": "serverside"
+            },
+            {
+              "partition": "Common",
+              "name": "tcp-wan-optimized",
+              "context": "clientside"
+            },
+            {
+              "partition": "Common",
+              "name": "http",
+              "context": "all"
+            },
+            {
+              "partition": "Common",
+              "name": "clientssl",
+              "context": "clientside"
+            }
+          ],
+          "sourceAddressTranslation": {
+            "type": "automap"
+          },
+          "name": "test_https_vs"
+        }
+      ],
+      "virtualAddresses": [
+        {
+          "enabled": "yes",
+          "name": "192.168.0.2",
+          "autoDelete": "false",
+          "address": "192.168.0.2"
+        },
+        {
+          "enabled": "yes",
+          "name": "192.168.0.1",
+          "autoDelete": "false",
+          "address": "192.168.0.1"
+        }
+      ]
+    }
+  }
+}

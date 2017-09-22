@@ -1,0 +1,78 @@
+{
+  "iapp": {
+    "template": "/Common/appsvcs_integration_v2.0.004",
+    "options": {
+      "description": "This is a test iApp"
+    },
+    "poolMemberTable": {
+      "name": "pool__members",
+      "columns": [
+        {
+          "name": "addr",
+          "kind": "IPAddress"
+        },
+        {
+          "name": "port",
+          "kind": "Port"
+        },
+        {
+          "name": "connection_limit",
+          "value": "0"
+        }
+      ],
+      "members": []
+    },
+    "tables": {
+      "monitor__Monitors": {
+        "columns": [
+          "Index",
+          "Name",
+          "Type",
+          "Options"
+        ],
+        "rows": [
+          [
+            "0",
+            "/Common/http",
+            "none",
+            "none"
+          ]
+        ]
+      },
+      "pool__Pools": {
+        "columns": [
+          "Index",
+          "Name",
+          "Description",
+          "LbMethod",
+          "Monitor",
+          "AdvOptions"
+        ],
+        "rows": [
+          [
+            "0",
+            "",
+            "",
+            "round-robin",
+            "0",
+            "none"
+          ]
+        ]
+      }
+    },
+    "variables": {
+      "iapp__logLevel": "7",
+      "iapp__mode": "auto",
+      "iapp__routeDomain": "auto",
+      "l7policy__strategy": "/Common/first-match",
+      "pool__DefaultPoolIndex": "0",
+      "pool__mask": "255.255.255.255",
+      "vs__Description": "",
+      "vs__ProfileClientProtocol": "/Common/tcp-wan-optimized",
+      "vs__ProfileHTTP": "/Common/http",
+      "vs__ProfileServerProtocol": "/Common/tcp-lan-optimized",
+      "vs__SNATConfig": "automap",
+      "feature__insertXForwardedFor": "enabled"
+    }
+  }
+}
