@@ -10,7 +10,7 @@ This is [F5 Contributed Software](https://support.f5.com/csp/article/K80012344)
 
    * Python 2.7
    * Python Modules: f5-cccl
-   * F5 BIG-IP LTM > 11.6.0
+   * F5 BIG-IP LTM >= 12.1.0
    * Application Services Integration iApp
 
 ### Usage
