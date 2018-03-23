@@ -30,7 +30,7 @@ for row in csv.reader(open(sys.argv[1])):
         if 'virtualServer' in json_template:
             vs_list = output['resources'][partition].get("virtualServers",[])
             json_template['virtualServer']['name'] = vs_name
-            json_template['virtualServer']['destination'] = ip_port
+            json_template['virtualServer']['destination'] = "/%s/%s" %(partition,ip_port)
             json_template['virtualServer']['pool'] = pool_name
             vs_list.append(json_template['virtualServer'])
             output['resources'][partition]['virtualServers'] = vs_list

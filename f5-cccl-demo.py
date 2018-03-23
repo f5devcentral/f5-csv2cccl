@@ -175,7 +175,7 @@ if __name__ == '__main__':
 
     for cccl in cccls:
         try:
-            incomplete += cccl.apply_config(cfg[cccl.get_partition()])
+            incomplete += cccl.apply_ltm_config(cfg[cccl.get_partition()])
         except F5CcclError as e:
             logger.error("CCCL Error: %s", e.msg)
     c = bigip.tm.sys.config
